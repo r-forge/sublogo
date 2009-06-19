@@ -1,0 +1,261 @@
+%!PS-Adobe-2.0 EPSF-1.2
+%%BeginProcSet:convertToR 0 0
+(<?xml version='1.0'?>
+
+) print
+(<picture version='2' xmlns:rgml='http://r-project.org/RGML' source='./testseqs/zfp2.1.ps' date='2009-06-15 13:05:30' creator='R (2.9.0)' >
+
+) print
+true setglobal
+/convertToR dup 100 dict def load begin
+/str 20 string def
+/id 1 def
+/xmax -99999 def
+/xmin  99999 def
+/ymax -99999 def
+/ymin  99999 def
+/mymove {
+  (	<move) print
+  matrix currentmatrix
+  transform
+  dup
+  convertToR exch /ystart exch put
+  dup
+  convertToR exch /cury exch put
+  dup
+  convertToR /ymin get lt {convertToR /ymin cury put} if
+  dup
+  convertToR /ymax get gt {convertToR /ymax cury put} if
+  ( y=') print str cvs print (') print
+  dup
+  convertToR exch /xstart exch put
+  dup
+  convertToR exch /curx exch put
+  dup
+  convertToR /xmin get lt {convertToR /xmin curx put} if
+  dup
+  convertToR /xmax get gt {convertToR /xmax curx put} if
+  ( x=') print str cvs print (') print
+  (/>
+) print
+} def
+/myline {
+  (	<line) print
+  matrix currentmatrix
+  transform
+  dup
+  convertToR exch /cury exch put
+  dup
+  convertToR /ymin get lt {convertToR /ymin cury put} if
+  dup
+  convertToR /ymax get gt {convertToR /ymax cury put} if
+  ( y=') print str cvs print (') print
+  dup
+  convertToR exch /curx exch put
+  dup
+  convertToR /xmin get lt {convertToR /xmin curx put} if
+  dup
+  convertToR /xmax get gt {convertToR /xmax curx put} if
+  ( x=') print str cvs print (') print
+  (/>
+) print
+  } def
+/mycurve {
+  (curve ) print
+  str cvs print ( ) print
+  str cvs print (
+) print
+  } def
+/myclose {
+  (	<line) print
+  ( y=') print convertToR /ystart get str cvs print (') print
+  ( x=') print convertToR /xstart get str cvs print (') print
+  (/>
+) print
+  } def
+/printcol {
+  currentrgbcolor
+  (		<rgb) print
+  ( r=') print 2 index str cvs print (') print
+  ( g=') print 1 index str cvs print (') print
+  ( b=') print str cvs print (') print
+  (/>
+) print
+  pop pop
+  } def
+/printlwd {
+  currentlinewidth
+  ( lwd=') print 1.33 mul str cvs print (') print
+} def
+/printstyle {
+  (		<style) print
+  printlwd
+  (/>
+) print
+} def
+/mystroke {
+  (<path type='stroke') print
+  ( id=') print convertToR /id get str cvs print ('>
+) print
+  (	<context>
+) print
+  printcol  
+  printstyle
+  (	</context>
+
+) print
+  pathforall
+  convertToR /id get 1 add convertToR exch /id exch put
+  (</path>
+
+) print
+} def
+/myfill {
+  (<path type='fill') print
+  ( id=') print convertToR /id get str cvs print ('>
+) print
+  (	<context>
+) print
+  printcol
+  printstyle
+  (	</context>
+
+) print
+  pathforall
+  convertToR /id get 1 add convertToR exch /id exch put
+  (</path>
+
+) print
+} def
+/mytext {
+  (<text ) print
+  ( id=') print convertToR /id get str cvs print (') print
+  ( string=') print dup print (') print
+  currentpoint
+  matrix currentmatrix
+  transform
+    dup
+    convertToR exch /cury exch put
+    dup
+    convertToR /ymin get lt {convertToR /ymin cury put} if
+    dup
+    convertToR /ymax get gt {convertToR /ymax cury put} if
+    ( y=') print str cvs print (') print
+    dup
+    convertToR exch /curx exch put
+    dup
+    convertToR /xmin get lt {convertToR /xmin curx put} if
+    dup
+    convertToR /xmax get gt {convertToR /xmax curx put} if
+    ( x=') print str cvs print (') print
+  dup true charpath flattenpath mark pathbbox
+  ( width=') print
+    1 index 1 index
+    matrix currentmatrix transform pop
+    4 index 4 index
+    matrix currentmatrix transform pop
+    sub
+    str cvs print (') print
+    currentpoint
+    matrix currentmatrix
+    transform pop
+    dup
+    convertToR exch /curx exch put
+    dup
+    convertToR /xmin get lt {convertToR /xmin curx put} if
+    convertToR /xmax get gt {convertToR /xmax curx put} if
+  ( height=') print
+    dup 3 index sub
+    currentpoint exch pop add
+    currentpoint pop exch
+    matrix currentmatrix
+    transform exch pop
+    dup
+    convertToR exch /cury exch put
+    dup
+    convertToR /ymin get lt {convertToR /ymin cury put} if
+    convertToR /ymax get gt {convertToR /ymax cury put} if
+    1 index 1 index
+    matrix currentmatrix transform exch pop
+    4 index 4 index
+    matrix currentmatrix transform exch pop
+    sub
+    str cvs print (') print
+  cleartomark
+  (>
+) print
+  (	<context>
+) print
+  printcol
+  printstyle
+  (	</context>
+
+) print
+  convertToR /id get 1 add convertToR exch /id exch put
+  (</text>
+
+) print
+} def
+/mychar {
+  (<path type='char') print
+  ( id=') print convertToR /id get str cvs print ('>
+) print
+  pathforall
+  (	<context>
+) print
+  printcol
+  printstyle
+  (	</context>
+
+) print
+  convertToR /id get 1 add convertToR exch /id exch put
+  (</path>
+
+) print
+} def
+/stroke {
+  flattenpath {mymove} {myline} {mycurve} {myclose}
+  mystroke
+  newpath
+} def
+/fill {
+  flattenpath {mymove} {myline} {mycurve} {myclose}
+  myfill
+  newpath
+} def
+/eofill {
+  flattenpath {mymove} {myline} {mycurve} {myclose}
+  myfill
+  newpath
+} def
+/strokechar {
+  exch dup 3 -1 roll
+  1 getinterval
+  true charpath flattenpath
+  {mymove} {myline} {mycurve} {myclose}
+  mychar
+  currentpoint newpath moveto
+} def
+/show {
+  dup length -1 add 0 exch 1 exch {strokechar} for
+} def
+end
+false setglobal
+/dummy 100 dict def
+%%EndProcSet
+%% EndProlog
+
+convertToR begin
+dummy begin
+
+(./testseqs/zfp2.1.ps) run
+(<summary count=') print convertToR /id get 1 sub str cvs print (') print
+( ymax=') print convertToR /ymax get str cvs print (') print
+( ymin=') print convertToR /ymin get str cvs print (') print
+( xmax=') print convertToR /xmax get str cvs print (') print
+( xmin=') print convertToR /xmin get str cvs print (') print
+(/>
+
+) print
+(</picture>) print
+%% EOF
