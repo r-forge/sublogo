@@ -14,17 +14,21 @@ read.fasta <- function(infile){
 ##debug(read.fasta)
 
 dna.letters <- c("*","A","T","G","C")
-seqs.to.mat <- function(seq.vec,subs.mat){
+dna.identity <- matrix(0,nrow=length(dna.letters),ncol=length(dna.letters),
+                       dimnames=list(dna.letters,dna.letters))
+diag(dna.identity) <- 1
+dna.identity['*','*'] <- 0
+seqs.to.mat <- function(seq.vec,subs.mat=NULL){
   if(is.null(names(seq.vec)))names(seq.vec) <- seq.vec
   d <- toupper(gsub('[-.]',"*",seq.vec[unique(names(seq.vec))]))
   print(d)
   letters <- unique(c(unlist(strsplit(d,split='')),dna.letters))
   ##if dna alignment use simple identity matrix
-  if(identical(sort(letters),sort(dna.letters))){
-    subs.mat <- matrix(0,nrow=length(dna.letters),ncol=length(dna.letters),
-                       dimnames=list(dna.letters,dna.letters))
-    diag(subs.mat) <- 1
-    subs.mat['*','*'] <- 0
+  looks.like.dna <- identical(sort(letters),sort(dna.letters))
+  if(is.null(subs.mat)){
+    subs.mat <- if(looks.like.dna)dna.identity else BLOSUM62
+  }else{
+    if(mode(sample.data)=="character")subs.mat <- get(subs.mat)
   }
   print(subs.mat)
   N <- length(d)
@@ -51,10 +55,12 @@ make.logo.ps <- function(helices,psbase){
   #             paste(helices,collapse=','),'>',psfile)
   seq.text <- paste(paste('>',helices,'\n',helices,sep=''),collapse='\n')
   write(seq.text,psbase)
-  cmd <- paste("weblogo/seqlogo -c -F EPS -f",psbase,"|sed 's/^EndLine/%EndLine/'|sed 's/^EndLogo/%EndLogo/' >",psfile)#,'&& convert',epsfile,psfile)
+  cmd <- paste("PATH=/home/thocking/Desktop/sublogo/pkg/exec:$PATH seqlogo -c -F EPS -f",psbase,"|sed 's/^EndLine/%EndLine/'|sed 's/^EndLogo/%EndLogo/' >",psfile)
   cat(cmd,'\n')
   system(cmd)
+  owd <- setwd(tempdir())
   PostScriptTrace(psfile,xmlfile)
+  setwd(owd)
   pic <- readPicture(xmlfile)
   #pic[-1:-41]
   pic
@@ -63,13 +69,18 @@ make.logo.ps <- function(helices,psbase){
 
 subtitle <- function(st) mtext(st,line=-0.7,cex=1)
 sublogo.dendrogram <- function(
-  M,main,subtit,base,cutline=150,dend.width=30){
+  M,main='',subtit=NULL,base=NULL,cutline=150,dend.width=30){
+  if(is.null(base))base <- tempfile()
   hc <- hclust(as.dist(M),method="average")
   dend <- as.dendrogram(hc)
   fam <- cutree(hc,h=cutline)[labels(dend)] # order by plotting method
-  nfams <- length(unique(fam))
+  famids <- unique(fam)
   famtab <- data.frame(fam,y=1:length(fam))
   famtab$seq <- attr(M,'seqs')[rownames(famtab)]
+  fam.nontriv <- sapply(famids,function(i)sum(famtab$fam==i))>1
+  names(fam.nontriv) <- famids
+  if(is.null(subtit))
+    subtit <- paste(nrow(M),"sequences,",sum(fam.nontriv),"families")
   xrange <- c(0,1)
   yrange <- c(0,max(famtab[,'y'])+1)
   draw.box <- function(i){ # replace with logos
@@ -78,9 +89,9 @@ sublogo.dendrogram <- function(
     rect(xrange[1],grprange[1]-0.25,xrange[2],grprange[2]+0.25)
   }
   draw.logo <- function(i){
-    subrows <- famtab[,'fam']==i
-    if(sum(subrows)>1){ # ignore family of size 1
-      subtab <- famtab[subrows,]
+    ## do not draw sublogo for a family of trivial size
+    if(fam.nontriv[as.character(i)]){ 
+      subtab <- famtab[famtab[,'fam']==i,]
       grprange <- range(subtab[,'y'])
       tmpfile <- paste(base,i,sep='.')
       logo <- make.logo.ps(subtab$seq,tmpfile)
@@ -91,7 +102,6 @@ sublogo.dendrogram <- function(
                    distort=T,
                    just=c(0,0),
                    fillText=T)
-      #addlogo(logo,xrange,grprange+c(-1,1)*0.25)
     }
   }
 
@@ -102,12 +112,11 @@ sublogo.dendrogram <- function(
   layout(matrix(1:3,ncol=3),c(side.percents,dend.width,side.percents))
   par(mai=c(bottomspace,0,topspace,0),cex=ncex)
   
-  # Big summary logo on left
+  ## Big summary logo on left
   plot(xrange,yrange,
        bty='n',xaxt='n',yaxt='n',ylab='',xlab='',type='n',yaxs='i')
   ##subtitle("Overall logo")
   biglogo <- make.logo.ps(famtab$seq,paste(base,'0',sep='.'))
-  #addlogo(biglogo,xrange,range(famtab[,'y'])+c(0,1))
   vps <- baseViewports()
   pushViewport(vps$inner,vps$figure,vps$plot)
   grid.picture(biglogo,
@@ -119,17 +128,16 @@ sublogo.dendrogram <- function(
                fillText=T)
   popViewport(3)
   
-  # Dendrogram in middle
-  ##par(mar=c(bottomspace,0,topspace,7.5))
+  ## Dendrogram in middle
   par(mai=c(bottomspace,0,topspace,
-        max(strwidth(colnames(M),'inches',family='mono'))))
-  par(family='mono')
+        max(strwidth(colnames(M),'inches'))),
+      family='mono')
   plot(dend,h=T,edgePar=list(lwd=2))
   par(family="")
   par(xpd=NA)
   segments(cutline,1,cutline,length(fam))
   
-  # Title in the middle
+  ## Title in the middle
   title(main,line=0.5)
   ##subtitle("Dendrogram")
   subtitle(subtit)
@@ -141,11 +149,12 @@ sublogo.dendrogram <- function(
   ##subtitle("Sublogos")
   vps <- baseViewports()
   pushViewport(vps$inner,vps$figure,vps$plot)
-  sapply(1:nfams,draw.logo)
+  sapply(famids,draw.logo)
   popViewport(3)
   
   hc
 }
-#debug(sublogo.dendrogram)
+##debug(sublogo.dendrogram)
 
-
+## shortcut function for common case of sequence data
+sublogo <- function(seqs,mat=NULL,...)sublogo.dendrogram(seqs.to.mat(seqs,mat),...)
