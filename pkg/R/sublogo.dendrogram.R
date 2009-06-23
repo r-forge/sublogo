@@ -1,6 +1,7 @@
 library(grImport)
 library(gridBase)
 
+
 ## FASTA format
 read.fasta <- function(infile){
   tmp <- sapply(strsplit(strsplit(paste('\n\n\n',paste(readLines(infile),collapse='\n'),sep=''),split='\n>')[[1]],'\n'),function(v)c(v[1],paste(v[2:length(v)],collapse='')))
@@ -25,10 +26,12 @@ seqs.to.mat <- function(seq.vec,subs.mat=NULL){
   letters <- unique(c(unlist(strsplit(d,split='')),dna.letters))
   ##if dna alignment use simple identity matrix
   looks.like.dna <- identical(sort(letters),sort(dna.letters))
-  if(is.null(subs.mat)){
-    subs.mat <- if(looks.like.dna)dna.identity else BLOSUM62
-  }else{
-    if(mode(sample.data)=="character")subs.mat <- get(subs.mat)
+  if(is.null(subs.mat))
+    subs.mat <- if(looks.like.dna)dna.identity else "BLOSUM62"
+  if(mode(subs.mat)=="character"){
+    ex <- substitute(data(M,package="Biostrings"),list(M="BLOSUM62"))
+    eval(ex)
+    subs.mat <- get(subs.mat)
   }
   print(subs.mat)
   N <- length(d)
@@ -45,14 +48,10 @@ seqs.to.mat <- function(seq.vec,subs.mat=NULL){
 }
 ##debug(seqs.to.mat)
 
-## alternative vector format reading available with grImport + R>=2.3
+## vector format reading available with grImport + R>=2.3
 make.logo.ps <- function(helices,psbase){
-  epsfile <- paste(psbase,'eps',sep='.')
   psfile <- paste(psbase,'ps',sep='.')
   xmlfile <- paste(psfile,'xml',sep='.')
-  ## to be replaced by berkeley weblogo eventually :
-  #cmd <- paste('python helix_logo.py',"ATA",
-  #             paste(helices,collapse=','),'>',psfile)
   seq.text <- paste(paste('>',helices,'\n',helices,sep=''),collapse='\n')
   write(seq.text,psbase)
   cmd <- paste("PATH=/home/thocking/Desktop/sublogo/pkg/exec:$PATH seqlogo -c -F EPS -f",psbase,"|sed 's/^EndLine/%EndLine/'|sed 's/^EndLogo/%EndLogo/' >",psfile)
@@ -62,7 +61,6 @@ make.logo.ps <- function(helices,psbase){
   PostScriptTrace(psfile,xmlfile)
   setwd(owd)
   pic <- readPicture(xmlfile)
-  #pic[-1:-41]
   pic
 }
 ##debug(make.logo.ps)
@@ -136,6 +134,7 @@ sublogo.dendrogram <- function(
   par(family="")
   par(xpd=NA)
   segments(cutline,1,cutline,length(fam))
+  axis(3,cutline,lty=0,line=0)
   
   ## Title in the middle
   title(main,line=0.5)
