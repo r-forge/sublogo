@@ -59,5 +59,10 @@ rseq <- function(n,m,corr=0){
 ##debug(rseq)
 m <- rmat() ## make a substitution matrix
 seqs <- rseq(50,m,0.95) ## randomly draw some sequences from that matrix
-sublogo(seqs,cutline=6.7)
-t(cbind(m,good.rows(m)))
+
+pdfname <- "../../poster/perfect-simulated-example.pdf"
+pdf(pdfname,paper="a4r",h=0,w=0)
+sublogo(seqs,cutline=6.7,main="Simulated sequences, with correlation between positions 1 and 10, but no correlation with position 4")
+dev.off()
+system(paste("xpdf",pdfname))
+

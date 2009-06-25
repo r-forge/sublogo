@@ -134,7 +134,7 @@ sublogo.dendrogram <- function(
   par(family="")
   par(xpd=NA)
   segments(cutline,1,cutline,length(fam))
-  axis(3,cutline,lty=0,line=0)
+  ##axis(3,cutline,lty=0,line=0)
   
   ## Title in the middle
   title(main,line=0.5)
