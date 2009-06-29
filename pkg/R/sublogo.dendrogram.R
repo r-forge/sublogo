@@ -67,7 +67,7 @@ make.logo.ps <- function(helices,psbase){
 
 subtitle <- function(st) mtext(st,line=-0.7,cex=1)
 sublogo.dendrogram <- function(
-  M,main='',subtit=NULL,base=NULL,cutline=150,dend.width=30){
+  M,main='',subtit=NULL,base=NULL,cutline=150,dend.width=30,cex=1){
   if(is.null(base))base <- tempfile()
   hc <- hclust(as.dist(M),method="average")
   dend <- as.dendrogram(hc)
@@ -128,11 +128,12 @@ sublogo.dendrogram <- function(
   
   ## Dendrogram in middle
   par(mai=c(bottomspace,0,topspace,
-        max(strwidth(colnames(M),'inches'))),
+        max(strwidth(colnames(M),'inches',
+                     cex))/6*5),
       family='mono')
-  plot(dend,h=T,edgePar=list(lwd=2))
-  par(family="")
   par(xpd=NA)
+  plot(dend,h=T,edgePar=list(lwd=2),nodePar=list(lab.cex=cex,pch=""))
+  par(family="")
   segments(cutline,1,cutline,length(fam))
   ##axis(3,cutline,lty=0,line=0)
   

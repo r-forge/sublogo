@@ -66,3 +66,22 @@ sublogo(seqs,cutline=6.7,main="Simulated sequences, with correlation between pos
 dev.off()
 system(paste("xpdf",pdfname))
 
+
+exsublogo <- function(str,f=T,dim=NULL,ss=NULL,...){
+  ex <- function(x)paste("../../poster/examples/",str,".",x,sep="")
+  pdfname <- ex("pdf")
+  if(f)if(is.null(dim))pdf(pdfname,paper="a4r",h=0,w=0)
+  else pdf(pdfname,h=dim$h,w=dim$w)
+  seqs <- read.fasta(ex("fasta"))
+  if(!is.null(ss))seqs <- substr(seqs,ss[1],ss[2])
+  sublogo(seqs,...)
+  if(f){
+    dev.off()
+    system(paste("xpdf",pdfname))
+  }
+}
+##debug(exsublogo)
+exsublogo("zfp",cutline=30,main="Zinc finger protein recognition helix sequences, selected to bind triplet GGC")
+exsublogo("cap-dna",dend.width=20,cutline=11.5,dim=list(h=6,w=22),main="CAP promoters form a palindromic binding site motif",cex=0.75)
+exsublogo("cap-protein",dend.width=25,cutline=75,dim=list(h=6,w=20),cex=0.5,main="Helix-turn-helix motif from the Catabolite Activator Protein (CAP) transcription factor")
+source("sublogo.dendrogram.R");exsublogo("globin",dend.width=50,cutline=100,dim=list(h=6,w=20),cex=0.5,main="The end of the B helix through the beginning of the D helix of 34 globins",ss=c(61,83))
