@@ -1,0 +1,16 @@
+Sublogo dendrograms
+by Toby Dylan Hocking
+
+2.0
+
+Use bioconductor package seqLogo instead of grImport/weblogo.
+
+Find/write a grid method for drawing dendrograms.
+
+1.0
+
+Uses grImport to import sequence logos from the weblogo program.
+
+Uses gridBase to use grid graphics at the same time as base R
+graphics, since there is no routine for drawing dendrograms in grid
+graphics.
