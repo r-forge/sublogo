@@ -21,7 +21,17 @@ diag(dna.identity) <- 1
 dna.identity['*','*'] <- 0
 seqs.to.mat <- function(seq.vec,subs.mat=NULL){
   if(is.null(names(seq.vec)))names(seq.vec) <- seq.vec
-  d <- toupper(gsub('[-.]',"*",seq.vec[unique(names(seq.vec))]))
+  chars <- sapply(seq.vec,nchar)
+  seqsum <- table(chars)
+  if(length(seqsum)>1){
+    print(as.data.frame(seqsum))
+    i <- which.max(seqsum)
+    cat("Sequences not of length ",names(seqsum)[i],":\n",sep="")
+    rows <- as.integer(names(seqsum)[i])!=chars
+    print(data.frame(chars,name=names(seq.vec),row.names=NULL)[rows,])
+    stop("All input sequences must be of the same length.")
+  }
+  d <- toupper(gsub('[- .]',"*",seq.vec[unique(names(seq.vec))]))
   print(d)
   letters <- unique(c(unlist(strsplit(d,split='')),dna.letters))
   ##if dna alignment use simple identity matrix
@@ -38,7 +48,11 @@ seqs.to.mat <- function(seq.vec,subs.mat=NULL){
   m <- matrix(0,nrow=N,ncol=N,dimnames=list(names(d),names(d)))
   for(i in 1:N)for(j in 1:i){
     seqs <- sapply(strsplit(c(d[i],d[j]),split=''),c)
-    entry <- apply(seqs,1,function(x)subs.mat[x[1],x[2]])
+    entry <- try(apply(seqs,1,function(x)subs.mat[x[1],x[2]]))
+    if(class(entry)=="try-error"){
+      print(seqs)
+      stop("Sequence difference matrix construction failed.")
+    }
     ## subscript out of bounds here usually means bad matrix
     m[i,j] <- m[j,i] <- -sum(entry)
   }
