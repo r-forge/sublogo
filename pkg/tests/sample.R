@@ -84,6 +84,6 @@ exsublogo <- function(str,f=T,dim=NULL,ss=NULL,...){
 exsublogo("zfp",cutline=30,main="Zinc finger protein recognition helix sequences, selected to bind triplet GGC")
 exsublogo("cap-dna",dend.width=20,cutline=11.5,dim=list(h=6,w=22),main="CAP promoters form a palindromic binding site motif",cex=0.75)
 exsublogo("cap-protein",dend.width=25,cutline=75,dim=list(h=6,w=20),cex=0.5,main="Helix-turn-helix motif from the Catabolite Activator Protein (CAP) transcription factor")
-source("sublogo.dendrogram.R");exsublogo("globin",dend.width=20,cutline=90,dim=list(h=6,w=20),cex=0.5,main="The end of the B helix through the beginning of the D helix of 34 globins",ss=c(61,83))
+source("sublogo.dendrogram.R");exsublogo("globin",dend.width=20,cutline=90,dim=list(h=6,w=20),cex=0.5,main="The end of the B helix through the beginning of the D helix of globins",ss=c(61,81))
 exsublogo("prenyl",dend.width=30,cutline=160,dim=list(h=4,w=20),main="Prenyltransferases (motif A)")
 source("sublogo.dendrogram.R");exsublogo("splice",dend.width=20,cutline=27,dim=list(h=4,w=20),main="Human splice sites on the intron/exon boundary")

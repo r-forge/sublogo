@@ -39,7 +39,7 @@ seqs.to.mat <- function(seq.vec,subs.mat=NULL){
   if(is.null(subs.mat))
     subs.mat <- if(looks.like.dna)dna.identity else "BLOSUM62"
   if(mode(subs.mat)=="character"){
-    ex <- substitute(data(M,package="Biostrings"),list(M="BLOSUM62"))
+    ex <- substitute(data(M,package="Biostrings"),list(M=subs.mat))
     eval(ex)
     subs.mat <- get(subs.mat)
   }
