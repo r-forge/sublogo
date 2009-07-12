@@ -43,7 +43,11 @@ echo $contents; } ?>
 
 <!-- end of project description -->
 
-<p> No content added. </p>
+<p> 
+Sublogo dendrograms were presented in a poster at useR! 2009.
+[<a href="http://www.agrocampus-ouest.fr/math/useR-2009/abstracts/pdf/Hocking.pdf">Abstract</a>]
+[<a href="HOCKING-Toby-Dylan-useR2009-sublogo-dendrograms.pdf">Poster</a>]
+</p>
 
 <p> The <strong>project summary page</strong> you can find <a href="http://<?php echo $domain; ?>/projects/<?php echo $group_name; ?>/"><strong>here</strong></a>. </p>
 
