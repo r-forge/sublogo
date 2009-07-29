@@ -1,9 +1,8 @@
-library(grImport)
-library(gridBase)
-
-
-## FASTA format
-read.fasta <- function(infile){
+read.fasta <- function
+### Read sequences in FASTA format into a named character vector
+(infile
+### Name of the sequence file
+ ){
   tmp <- sapply(strsplit(strsplit(paste('\n\n\n',paste(readLines(infile),collapse='\n'),sep=''),split='\n>')[[1]],'\n'),function(v)c(v[1],paste(v[2:length(v)],collapse='')))
   seqs <- tmp[2,]
   names(seqs) <- tmp[1,]
@@ -19,7 +18,12 @@ dna.identity <- matrix(0,nrow=length(dna.letters),ncol=length(dna.letters),
                        dimnames=list(dna.letters,dna.letters))
 diag(dna.identity) <- 1
 dna.identity['*','*'] <- 0
-seqs.to.mat <- function(seq.vec,subs.mat=NULL){
+seqs.to.mat <- function
+### calculate pairwise differences between sequences using a substitution matrix
+(seq.vec,
+### dna or protein sequences
+ subs.mat=NULL){
+### substitution matrix with dimnames that match the letters used in the sequence data
   if(is.null(names(seq.vec)))names(seq.vec) <- seq.vec
   chars <- sapply(seq.vec,nchar)
   seqsum <- table(chars)
