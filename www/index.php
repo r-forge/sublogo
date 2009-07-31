@@ -46,7 +46,11 @@ echo $contents; } ?>
 <p> 
 Sublogo dendrograms were presented in a poster at useR! 2009:
 
-<br />[<a href="http://www.agrocampus-ouest.fr/math/useR-2009/abstracts/pdf/Hocking.pdf">Abstract</a>] Note that the link to the web interface does not work for the time being.
+<br />[<a
+href="HOCKING-Toby-Dylan-useR2009-sublogo-dendrograms-abstract.pdf">Abstract</a>]
+Note that the link to the web interface mentioned in the abstract does
+not work for the time being. I would need to get access to a server with PHP
+and R.
 
 <br />[<a href="HOCKING-Toby-Dylan-useR2009-sublogo-dendrograms.pdf">Poster</a>]
 </p>
