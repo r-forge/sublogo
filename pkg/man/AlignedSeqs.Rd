@@ -37,8 +37,15 @@ List of 6
 %%  ~~ possibly secondary sources and usages ~~
 }
 \examples{
+## Can't be run since we use the mono font
+## and the test initializes the postscript device without family="mono"
+\dontrun{
 data(AlignedSeqs)
 library(sublogo)
-sublogo(AlignedSeqs$zfp,cutline=30,main="Zinc finger protein recognition helix sequences, selected to bind triplet GGC")
+sublogo(AlignedSeqs$zfp,
+        cutline=30,
+        main="Zinc finger protein recognition
+          helix sequences, selected to bind triplet GGC")
+}
 }
 \keyword{datasets}
