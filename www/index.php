@@ -23,12 +23,12 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
 
 <body>
 
-<!-- R-Forge Logo -->
+<!-- R-Forge Logo
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
 <tr><td>
 <a href="/"><img src="<?php echo $themeroot; ?>/images/logo.png" border="0" alt="R-Forge Logo" /> </a> </td> </tr>
 </table>
-
+ -->
 
 <!-- get project title  -->
 <!-- own website starts here, the following may be changed as you like -->
@@ -43,8 +43,11 @@ echo $contents; } ?>
 
 <!-- end of project description -->
 
-<p> 
-Sublogo dendrograms were presented in a poster at useR! 2009:
+<h1>Sublogo dendrograms: visualizing correlation in biological
+sequence motifs
+</h1>
+
+ <p> Sublogo dendrograms were presented in a poster at useR! 2009:
 
 <br />[<a
 href="HOCKING-Toby-Dylan-useR2009-sublogo-dendrograms-abstract.pdf">Abstract</a>]
@@ -54,6 +57,19 @@ and R.
 
 <br />[<a href="HOCKING-Toby-Dylan-useR2009-sublogo-dendrograms.pdf">Poster</a>]
 </p>
+
+<p>To plot sublogo dendrograms, just put your sequences in a character
+vector, and call the sublogo function:</p>
+
+<pre>
+library(sublogo)
+data(AlignedSeqs)
+sublogo(AlignedSeqs$zfp,cutline=30,
+        main=paste("Zinc finger protein recognition helix sequences,",
+                   "selected to bind triplet GGC"))
+</pre>
+
+<img src="zfp.png" />
 
 <p> The <strong>project summary page</strong> you can find <a href="http://<?php echo $domain; ?>/projects/<?php echo $group_name; ?>/"><strong>here</strong></a>. </p>
 
