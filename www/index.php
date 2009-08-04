@@ -43,10 +43,6 @@ echo $contents; } ?>
 
 <!-- end of project description -->
 
-<h1>Sublogo dendrograms: visualizing correlation in biological
-sequence motifs
-</h1>
-
 <p>To plot a sublogo dendrogram, just put your sequences in a character
 vector, and call the sublogo function:</p>
 
