@@ -22,3 +22,4 @@ seqs.to.mat(seq.vec, subs.mat = NULL)
 
 \seealso{
 }
+\examples{}

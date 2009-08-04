@@ -25,3 +25,4 @@ sublogo(seqs, mat = NULL, ...)
 
 \seealso{
 }
+\examples{}

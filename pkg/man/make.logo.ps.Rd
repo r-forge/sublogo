@@ -22,3 +22,4 @@ make.logo.ps(helices, psbase)
 
 \seealso{
 }
+\examples{}

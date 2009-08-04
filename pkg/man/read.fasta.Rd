@@ -22,3 +22,4 @@ read.fasta(infile)
 
 \seealso{
 }
+\examples{}

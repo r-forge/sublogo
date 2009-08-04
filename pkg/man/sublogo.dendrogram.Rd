@@ -27,3 +27,4 @@ sublogo.dendrogram(M, main = "", subtit = NULL, base = tempfile(), cutline = 150
 
 \seealso{
 }
+\examples{}
