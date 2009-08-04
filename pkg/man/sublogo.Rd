@@ -36,7 +36,7 @@ sublogo(sample.data,cutline=30)
 ## simulation study: some seqs really are correlated, some are not,
 ## can we tell which ones are using these graphics?
 
-## completely independent sequences
+## completely independent sequences (way too much noise)
 seqs <- replicate(40,paste(sample(dna.letters[2:5],13,rep=TRUE),collapse=''))
 sublogo(seqs,cutline=10)
 substr(seqs[1:15],1,1) <- "A"
@@ -82,9 +82,15 @@ rseq <- function(n,m,corr=0){
 }
 ##debug(rseq)
 m <- rmat() ## make a substitution matrix
-seqs <- rseq(50,m,0.95) ## randomly draw some sequences from that matrix
 
-sublogo(seqs,cutline=6.7,main="Simulated sequences, with correlation between positions 1 and 10, but no correlation with position 4")
+simplot <- function(corr=0){
+  seqs <- rseq(50,m,corr) ## randomly draw some sequences from that matrix
+  sublogo(seqs,cutline=6.7,
+          main=paste("Simulated sequences with correlation coefficient",
+            round(corr,digits=2),"between 2 strongest positions"))
+}
+simplot()
+simplot(0.95)
 
 exsublogo <- function(S,subseq=NULL,...){
   seqs <- AlignedSeqs[[S]]
