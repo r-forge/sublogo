@@ -51,6 +51,7 @@ sequence motifs
 vector, and call the sublogo function:</p>
 
 <pre>
+install.packages(c("grImport","gridBase"))
 install.packages("sublogo", repos="http://R-Forge.R-project.org")
 library(sublogo)
 zfp <- c("DQGHRTR","DVGHRSR","ESGHLRR","ESSKRKR","SRRNLTR","TKGYLYK",
