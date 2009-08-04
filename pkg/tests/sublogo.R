@@ -1,3 +1,4 @@
+if(names(dev.cur())!="postscript"){ ## to avoid problems with R CMD check
 sample.data <- c(
 'QRTHLRD', 'QYVHLRS', 'QRAHLHS','QQSHLRA','QMAHLNS','QNTHLLQ',
 'QNVHLTG','QRKDLRG','QNKDRAA','QPSNLHR','QKQNPIS','TSTHLQS',
@@ -72,3 +73,4 @@ exsublogo("cap.protein",dend.width=25,cutline=75,cex=0.5,main="Helix-turn-helix 
 ##exsublogo("globin",dend.width=20,cutline=90,cex=0.5,main="The end of the B helix through the beginning of the D helix of globins",subseq=c(61,81))
 ##exsublogo("prenyl",dend.width=30,cutline=160,main="Prenyltransferases (motif A)")
 ##exsublogo("splice",dend.width=20,cutline=27,main="Human splice sites on the intron/exon boundary")
+}
