@@ -47,6 +47,20 @@ echo $contents; } ?>
 sequence motifs
 </h1>
 
+<p>To plot a sublogo dendrogram, just put your sequences in a character
+vector, and call the sublogo function:</p>
+
+<pre>
+install.packages("sublogo", repos="http://R-Forge.R-project.org")
+library(sublogo)
+zfp <- c("DQGHRTR","DVGHRSR","ESGHLRR","ESSKRKR","SRRNLTR","TKGYLYK",
+         "PSGYLYK","WTSRLKH","DKGHLRR","DGSHLKR","DRSNLRK","ERSKLTR","ERSKLSR")
+main <- "Zinc finger protein recognition helix sequences, selected to bind triplet GGC"
+sublogo(zfp,cutline=30,main=main)
+</pre>
+
+<img src="zfp.png" />
+
  <p> Sublogo dendrograms were presented in a poster at useR! 2009:
 
 <br />[<a
@@ -58,18 +72,7 @@ and R.
 <br />[<a href="HOCKING-Toby-Dylan-useR2009-sublogo-dendrograms.pdf">Poster</a>]
 </p>
 
-<p>To plot sublogo dendrograms, just put your sequences in a character
-vector, and call the sublogo function:</p>
 
-<pre>
-library(sublogo)
-data(AlignedSeqs)
-sublogo(AlignedSeqs$zfp,cutline=30,
-        main=paste("Zinc finger protein recognition helix sequences,",
-                   "selected to bind triplet GGC"))
-</pre>
-
-<img src="zfp.png" />
 
 <p> The <strong>project summary page</strong> you can find <a href="http://<?php echo $domain; ?>/projects/<?php echo $group_name; ?>/"><strong>here</strong></a>. </p>
 
