@@ -69,6 +69,7 @@ seqs.to.mat <- function
   }
   m <- m-min(m)
   attr(m,'seqs') <- d
+  print(m[1:min(5,nrow(m)),1:min(5,ncol(m))])
   m
 ### The matrix of distances between each input sequence, with dimnames
 ### corresponding to either the sequences, or the sequence names (if

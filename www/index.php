@@ -47,8 +47,7 @@ echo $contents; } ?>
 vector, and call the sublogo function:</p>
 
 <pre>
-install.packages(c("grImport","gridBase")) ## dependencies on CRAN
-install.packages("sublogo", repos="http://R-Forge.R-project.org")
+install.packages("sublogo")
 library(sublogo)
 zfp <- c("DQGHRTR","DVGHRSR","ESGHLRR","ESSKRKR","SRRNLTR","TKGYLYK",
          "PSGYLYK","WTSRLKH","DKGHLRR","DGSHLKR","DRSNLRK","ERSKLTR","ERSKLSR")
