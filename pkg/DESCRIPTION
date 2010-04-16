@@ -10,3 +10,4 @@ Description: Visualize correlation in biological sequence data using sublogo den
 URL: http://sublogo.r-forge.r-project.org
 License: GPL-3
 LazyLoad: yes
+Collate: sublogo.dendrogram.R
