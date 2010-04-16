@@ -11,6 +11,15 @@ More parameter options for the web form.
 
 SeqinR for sequence IO.
 
+1.2 16 april 2010
+
+Port to windows using perl command line and R regular expressions
+instead of shell commands in make.logo.ps.
+
+1.1 april 2010
+
+Update email.
+
 1.0 13 oct 2009 r29
 
 Uses grImport to import sequence logos from the weblogo program.
