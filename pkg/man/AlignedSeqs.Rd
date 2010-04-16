@@ -33,9 +33,6 @@ List of 6
 
   \url{http://weblogo.berkeley.edu}.
 }
-\references{
-%%  ~~ possibly secondary sources and usages ~~
-}
 \examples{
 ## Can't be run since we use the mono font
 ## and the test initializes the postscript device without family="mono"
