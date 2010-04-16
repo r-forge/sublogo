@@ -1,5 +1,4 @@
 \name{sublogo}
-\Rdversion{1.1}
 \alias{sublogo}
 \title{sublogo}
 \description{Draw a sublogo dendrogram for a sequence motif.}
@@ -7,24 +6,20 @@
 sublogo(seqs, mat = NULL, ...)
 }
 \arguments{
-  \item{seqs}{Character vector of DNA or protein sequences (optionally named with sequence labels).}
+  \item{seqs}{Character vector of DNA or protein sequences (optionally named
+with sequence labels).}
   \item{mat}{Substitution matrix passed to seqs.to.mat.}
-  \item{\dots}{
-}
-}
-\details{
-}
-\value{
-}
-\references{
-}
-\author{Toby Dylan Hocking <toby.hocking@etu.upmc.fr>}
-\note{
+  \item{\dots}{Other arguments to pass to sublogo.dendrogram (see that help page
+for a full description).}
 }
 
 
-\seealso{
-}
+
+\author{Toby Dylan Hocking <toby.hocking@inria.fr>}
+
+
+
+
 \examples{if(names(dev.cur())!="postscript"){ ## to avoid problems with R CMD check
 sample.data <- c(
 'QRTHLRD', 'QYVHLRS', 'QRAHLHS','QQSHLRA','QMAHLNS','QNTHLLQ',
@@ -51,7 +46,7 @@ good.rows <- function(x)rowSums(x>0.4)==2
 rmat <- function(N=10){
   sm <- matrix(0)
   ## this generates an interesting starting substitution matrix, where
-  ## there are at least 2 positions with freq>40%
+  ## there are at least 2 positions with freq>40\%
   while(sum(gr <- good.rows(sm))<2){
     x <- matrix(rexp(N*4),N,4)
     sm <- x/rowSums(x)
