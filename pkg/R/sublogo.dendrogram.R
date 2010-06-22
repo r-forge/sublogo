@@ -85,23 +85,23 @@ make.logo.ps <- function
 ### Base filename for the logo postscript and xml files, should be the
 ### full path name except for the trailing .ps
  ){
-  psfile <- paste(psbase,'eps',sep='.')
-  xmlfile <- paste(psfile,'xml',sep='.')
   seq.text <- paste(paste('>',helices,'\n',helices,sep=''),collapse='\n')
   write(seq.text,psbase)
+
   execdir <- system.file("exec",package="sublogo")
   seqlogo <- file.path(execdir,"seqlogo")
-##   cmd <- paste("PATH=",execdir,
-##                ":$PATH seqlogo -c -F EPS -f ",psbase,
-##                "|sed 's/^EndLine/%EndLine/'|sed 's/^EndLogo/%EndLogo/' >",
-##                psfile,sep="")
-  cmd <- paste("perl",seqlogo,"-c -F EPS -f",psbase,"-o",psbase)
+  quoted <- shQuote(psbase)
+  cmd <- paste("perl",shQuote(seqlogo),"-c -F EPS -f",quoted,"-o",quoted)
   cat(cmd,'\n')
   system(cmd)
+  
+  psfile <- sprintf("%s.eps",psbase)
   pslines <- readLines(psfile)
   pslines <- gsub("^End(?=(Line|Logo))","%End",pslines,perl=TRUE)
   writeLines(pslines,psfile)
+
   owd <- setwd(tempdir())
+  xmlfile <- sprintf("%s.xml",psfile)
   PostScriptTrace(psfile,xmlfile)
   setwd(owd)
   pic <- readPicture(xmlfile)

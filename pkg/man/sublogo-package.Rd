@@ -14,7 +14,8 @@ Maintainer: \tab Toby Dylan Hocking <toby.hocking@inria.fr>\cr
 Depends: \tab R (>= 2.3.0), grImport, gridBase, Biostrings\cr
 URL: \tab http://sublogo.r-forge.r-project.org\cr
 License: \tab GPL-3\cr
-LazyLoad: \tab yes\cr}
+LazyLoad: \tab yes\cr
+Collate: \tab sublogo.dendrogram.R\cr}
 }
 \author{Toby Dylan Hocking <toby.hocking@inria.fr>}
 
