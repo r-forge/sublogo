@@ -47,7 +47,13 @@ echo $contents; } ?>
 vector, and call the sublogo function:</p>
 
 <pre>
-install.packages("sublogo")
+## install dependencies
+source("http://bioconductor.org/biocLite.R")
+biocLite("Biostrings")
+install.packages(c("grImport","gridBase"))
+## install package from R-Forge repository
+install.packages("sublogo",repos="http://r-forge.r-project.org")
+## some test data
 library(sublogo)
 zfp <- c("DQGHRTR","DVGHRSR","ESGHLRR","ESSKRKR","SRRNLTR","TKGYLYK",
          "PSGYLYK","WTSRLKH","DKGHLRR","DGSHLKR","DRSNLRK","ERSKLTR","ERSKLSR")
